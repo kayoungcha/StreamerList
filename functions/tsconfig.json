@@ -1,15 +1,15 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "outDir": "lib",
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2017"
+    "module": "NodeNext", // ES 모듈을 지원하려면 유지
+    "esModuleInterop": true, // CommonJS와 ES 모듈 간의 호환성 유지
+    "moduleResolution": "NodeNext", // 🔥 기존 "nodenext" → "node" 또는 "node16" 추천
+    "noImplicitReturns": true, // 함수에서 명시적인 return이 없으면 오류 발생
+    "noUnusedLocals": true, // 사용하지 않는 로컬 변수가 있으면 오류 발생
+    "outDir": "lib", // 컴파일된 파일이 저장될 폴더
+    "sourceMap": true, // 디버깅을 위해 소스맵 생성
+    "strict": true, // TypeScript의 엄격한 타입 검사 활성화
+    "target": "es2020" // 🔥 기존 "es2017" → "es2020" 권장 (최신 문법 지원)
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["src", "lib"]
 }

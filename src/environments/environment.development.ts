@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: 'AIzaSyDZ2SYYFYbcGk3zx29xzU3xmTB_6OnhYgs',
+    apiKey: 'AIzaSyDZ2SYYbcGk3zx29xzU3xmTB_6OnhYgs',
     authDomain: 'streamerlist-fc911.firebaseapp.com',
     projectId: 'streamerlist-fc911',
     storageBucket: 'streamerlist-fc911.firebasestorage.app',
