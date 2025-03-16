@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="container">
+  <h2>치지직 스트리머 리스트트</h2>
+  <ul class="list-container">
+    @for (item of items; track item) {
+    <li class="streamer_item">
+      <img class="streamer_img" src="{{ item.channelImageUrl }}" alt="" />
+      <div class="info_box">
+        <span class="nickname">닉네임 : {{ item.channelName }}</span>
+        <span class="shannelId">채널 아이디 :{{ item.channelId }} </span>
+        <div class="tags-box">
+          <span>방송 태그 : {{ item.tags.length < 1 ? "태그없음" : "" }} </span>
+          @for (tag of item.tags; track tag){
+
+          <span class="tag">{{ tag }}, &nbsp;</span>
+          }
+        </div>
+      </div>
+      <hr />
+    </li>
+    }
+  </ul>
+  <button *ngIf="hasMore$ | async" (click)="loadMore()" class="load-more-btn">
+    더보기
+  </button>
+</div>
