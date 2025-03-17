@@ -1,25 +1,58 @@
 <div class="container">
-  <h2>치지직 스트리머 리스트트</h2>
-  <ul class="list-container">
-    @for (item of items; track item) {
-    <li class="streamer_item">
-      <img class="streamer_img" src="{{ item.channelImageUrl }}" alt="" />
-      <div class="info_box">
-        <span class="nickname">닉네임 : {{ item.channelName }}</span>
-        <span class="shannelId">채널 아이디 :{{ item.channelId }} </span>
-        <div class="tags-box">
-          <span>방송 태그 : {{ item.tags.length < 1 ? "태그없음" : "" }} </span>
-          @for (tag of item.tags; track tag){
+  <div class="list_wrap">
+    <h2>치지직 스트리머 리스트</h2>
 
-          <span class="tag">{{ tag }}, &nbsp;</span>
-          }
+    <ul class="list-container">
+      <li
+        *ngFor="let item of items; let i = index; trackBy: trackByFn"
+        class="streamer_item"
+      >
+        <img class="streamer_img" src="{{ item.channelImageUrl }}" alt="" />
+        <div class="info_box">
+          <span class="nickname">
+            {{ i < 3 ? "⭐ " : "" }}닉네임 : {{ item.channelName }}</span
+          >
+          <span class="shannelId">채널 아이디 :{{ item.channelId }} </span>
+          <div class="tags-box">
+            <span
+              >방송 태그 : {{ item.tags.length < 1 ? "태그없음" : "" }}
+            </span>
+            <span *ngFor="let tag of item.tags" class="tag"
+              >{{ tag }}, &nbsp;</span
+            >
+          </div>
         </div>
-      </div>
-      <hr />
-    </li>
-    }
-  </ul>
-  <button *ngIf="hasMore$ | async" (click)="loadMore()" class="load-more-btn">
-    더보기
-  </button>
+        <hr />
+      </li>
+    </ul>
+    <button *ngIf="hasMore$ | async" (click)="loadMore()" class="load-more-btn">
+      더보기
+    </button>
+  </div>
+
+  <div class="recommend_wrap">
+    <h2>추천 영상</h2>
+
+    <ul class="video_list">
+      <li
+        *ngFor="
+          let video of myRecommendVideo;
+          let i = index;
+          trackBy: trackByFn
+        "
+        class="video_item"
+      >
+        <a
+          [href]="'https://www.youtube.com/watch?v=' + video.videoId"
+          target="_blank"
+        >
+          <img src="{{ video.videoImageUrl }}" alt="" />
+          <div class="video_info">
+            <span>채널이름 : {{ video.channelTitle }} </span>
+            <span>비디오 이름 : {{ video.videoTitle }} </span>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>

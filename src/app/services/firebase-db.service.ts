@@ -20,19 +20,6 @@ import {
 import { Observable, BehaviorSubject, from, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-// ✅ Firestore 변환기 (Converter)
-const createConverter = <
-  T extends DocumentData
->(): FirestoreDataConverter<T> => ({
-  toFirestore: (data: WithFieldValue<T>): DocumentData => ({ ...data }), // ✅ Firestore가 기대하는 WithFieldValue<DocumentData> 준수
-  fromFirestore: (snapshot: QueryDocumentSnapshot<T>): T => {
-    return {
-      id: snapshot.id, // ✅ Firestore 문서 ID 포함
-      ...snapshot.data(),
-    };
-  },
-});
-
 @Injectable({
   providedIn: 'root',
 })
@@ -68,8 +55,6 @@ export class FirebaseDbService {
    */
 
   getInitialItems<T>(collectionName: string): Observable<T[]> {
-    console.log(`📌 getInitialItems 실행: ${collectionName}`);
-
     const collectionRef = collection(this.firestore, collectionName);
     const q = query(
       collectionRef,
@@ -81,13 +66,10 @@ export class FirebaseDbService {
       this.ngZone.runOutsideAngular(() => getDocs(q)) // ✅ Angular Zone 밖에서 실행
     ).pipe(
       map((snapshot) => {
-        console.log('📌 getInitialItems snapshot:', snapshot);
         const items: any[] = snapshot.docs.map((doc) => doc.data());
-        console.log('📌 변환된 items:', items);
 
         if (items.length > 0) {
           this.lastDoc = snapshot.docs[snapshot.docs.length - 1];
-          console.log('✅ 업데이트된 this.lastDoc:', this.lastDoc);
         } else {
           this.lastDoc = null;
         }
